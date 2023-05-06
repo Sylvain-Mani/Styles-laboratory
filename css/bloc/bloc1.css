@@ -1,0 +1,60 @@
+@property --rotate-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 203deg;
+}
+
+:root {
+    --background-color: black;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+h1, h2 {
+    margin: auto;
+}
+
+.box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0;
+    padding: 24px;
+    width: 350px;
+    height: 150px;
+    background-color: var(--background-color);
+    color: white;
+}
+
+.box::before, .box::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    z-index: -1;
+    border-radius: inherit;
+    background-image: linear-gradient(var(--rotate-angle),#00caf2,var(--background-color),#c7133a);
+    transition: 0.5s ease-out;
+}
+
+.box::after {
+    filter: blur(10px);
+}
+
+.box:hover::after {
+    filter: blur(20px);
+}
+
+.box:hover::before, .box:hover::after {
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        --rotate-angle: 203deg;
+    }
+    100% {
+        --rotate-angle: 563deg;
+    }
+}
