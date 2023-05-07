@@ -9,6 +9,11 @@ text-decoration: none;
 color: black;
 }
 
+li {
+    list-style-type: none;
+    padding: 5px 0;
+}
+
 body {
     height: 100vh;
 }
@@ -23,14 +28,14 @@ header {
     background: #fff;
 }
 
-header>h2 {
-
-}
-
 .main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: calc(100% - 140px);
+}
+
+.home {
+    margin: 10px;
 }
