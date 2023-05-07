@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+a {
+text-decoration: none;
+color: black;
+}
+
 body {
     height: 100vh;
 }
@@ -13,12 +18,13 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 60px;
+    height: 140px;
+    width: 100%;
+    background: #fff;
 }
 
-header.a .source {
-    /* text-decoration: none; */
-    margin: auto;
+header>h2 {
+
 }
 
 .main {
@@ -26,5 +32,5 @@ header.a .source {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: calc(100% - 60px);
+    min-height: calc(100% - 140px);
 }

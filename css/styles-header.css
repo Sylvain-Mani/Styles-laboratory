@@ -3,10 +3,9 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 60px;
+    height: 80px;
 }
 
-header.a .source {
-    /* text-decoration: none; */
-    margin: auto;
+a {
+text-decoration: none;
 }
