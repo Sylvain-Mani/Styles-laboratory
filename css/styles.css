@@ -1,41 +1,48 @@
+/* @font-face {
+  font-family: 'Roboto Flex';
+  src: url('../../asset/font/RobotoFlex-Regular.ttf');
+} */
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-text-decoration: none;
-color: black;
+  text-decoration: none;
+  color: black;
 }
 
 li {
-    list-style-type: none;
-    padding: 5px 0;
+  list-style-type: none;
+  padding: 5px 0;
 }
 
 body {
-    min-height: 100vh;
+  min-height: 100vh;
+  font-family: 'Roboto Flex', sans-serif;
+  /* font-size: 16px; */
 }
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 140px;
-    width: 100%;
-    background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 140px;
+  width: 100%;
+  background: #fff;
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100% - 140px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100% - 140px);
 }
 
 .home {
-    margin: 10px;
+  margin: 10px;
 }
