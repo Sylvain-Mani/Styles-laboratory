@@ -13,10 +13,10 @@ sidebarBtn.addEventListener("click", ()=>{
   sidebar.classList.toggle("close");
 });
 
-const tt = document.getElementById('plugins1');
-const tt2 = document.body;
-console.log(tt2);
+// const tt = document.getElementById('plugins1');
+// const tt2 = document.body;
+// console.log(tt2);
 
-new ResizeObserver(entries => {
-  console.log(entries);
-}).observe(tt);
+// new ResizeObserver(entries => {
+//   console.log(entries);
+// }).observe(tt);
