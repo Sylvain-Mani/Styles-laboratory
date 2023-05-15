@@ -51,6 +51,7 @@ body{
 .sidebar .nav-links{
   height: 100%;
   padding: 30px 0 150px 0;
+  /* padding: 20px 0 150px 0; */
   overflow: auto;
   /* overflow: visible; */
 }
@@ -132,22 +133,27 @@ body{
 .sidebar.close .nav-links li .sub-menu{
   position: absolute;
   left: 100%;
-  top: -10px;
+  /* voir sans top ici ... */
+  /* top: -10px; */
+  top: 0px;
   margin-top: 0;
   padding: 10px 20px;
   border-radius: 0 6px 6px 0;
   opacity: 0;
   display: block;
   pointer-events: none;
-  max-height: calc(100vh - 345px);
+  /* 40px = 30 padding du parent + -10 du top et top 0 dans le hover */
+  max-height: calc(100vh - (40px + 50px * var(--i)));
+  /* max-height: calc(100vh - (30px + 50px * var(--i))); */
   overflow: auto;
   transition: 0s;
 }
+
 .sidebar.close .nav-links li .sub-menu::-webkit-scrollbar{
   display: none;
 }
 .sidebar.close .nav-links li:hover .sub-menu{
-  top: 0;
+  /* top: 0; */
   opacity: 1;
   pointer-events: auto;
   transition: all 0.4s ease;
