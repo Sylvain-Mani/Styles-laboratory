@@ -1,64 +1,101 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/styles.css">
-  <title>Laboratoire de styles CSS</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>Document</title>
 </head>
 
 <body>
+  <!-- <div class="menu">
+    <button onclick="loadHtml('dropdown2')">Load</button>
+  </div> -->
+
+  <div class="target"></div>
+
   <?php
-  $dir    = './view';
-  $cdir = scandir($dir);
-  // print_r($cdir);
-
-  $count = 0;
-
-  foreach ($cdir as $key => $folder) {
-
-    if (!in_array($folder, array(".", ".."))) {
-
-      if (is_dir($dir . "/" . $folder)) {
-        $count++; ?>
-        <ul class="index-section" id="<?php echo $count ?>"> <?php echo $folder; ?></ul>
-        <?php
-        $files = scandir($dir . "/" . $folder);
-        // print_r($files);
-        // var_dump($files);
-        // printf($value);
-
-        foreach ($files as $key => $file) {
-          if (!in_array($file, array(".", ".."))) {
-            //printf($value2); 
-            $filePath = $dir . "/" . $folder . "/" . $file;
-
-            // ! Récupération du Titre du fichier html depuis le DOM.
-            $html = new DOMDocument();
-            @$html->loadHtmlFile($filePath);
-            // $html->loadHtmlFile($filePath); // KO
-
-            //var_dump($fileTitle);
-            // $xpath = new DOMXPath($html);
-            // $elements = $xpath->query("/html/head/title");
-            // var_dump($elements);
-            $fileTitle = $html->getElementsByTagName('title')->item(0)->textContent;
-            // var_dump($html->getElementsByTagName('title')->item(0));
-        ?>
-
-            <li class="index-item">
-              <a href=" <?php echo $filePath ?> " target="_blank"><?php echo $fileTitle ?></a>
-              <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/RctaFustg5w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
-            </li>
-  <?php
-          }
-        }
-      }
-    }
-  }
+  $data = create_tree();
+  // test('js', 'apps.js');
   ?>
+
+  <script>
+    let tree = <?php echo $data ?>
+  </script>
+  <script src="./js/app.js"></script>
+
 </body>
 
 </html>
+
+
+<?php
+function create_tree()
+{
+  $dir = './view/';
+  $dirHandle = opendir($dir);
+  while (false !== ($subDir = readdir($dirHandle))) {
+    if (!in_array($subDir, array(".", "..")) && filetype($dir . $subDir) == 'dir') {
+      $files = [];
+      $subHandle = opendir($dir . $subDir);
+      while (false !== ($file = readdir($subHandle))) {
+        if (!in_array($file, array(".", "..")) && filetype($dir . $subDir . DIRECTORY_SEPARATOR . $file) == 'file') {
+
+          // ! not iterable (donc pas utilisable avec for ou foreach)
+          // $files[pathinfo($file)['filename']] = [
+          $files[] = [
+            'filename' => $file,
+            'path' => $subDir,
+            'title' => get_titleHtml($dir . $subDir . DIRECTORY_SEPARATOR . $file),
+          ];
+          // test(pathinfo($file)['dirname'], pathinfo($file)['filename']);
+          create_file($subDir, pathinfo($file)['filename']);
+        }
+      }
+      if ($files !== []) {
+        $tree[] = ['dirname' => $subDir, 'content' => $files];
+      }
+    }
+  }
+  $res = json_encode($tree);
+  return $res;
+}
+
+function get_titleHtml($filePath)
+{
+  $html = new DOMDocument();
+  @$html->loadHtmlFile($filePath);
+  $titleNode = $html->getElementsByTagName('title')->item(0);
+  $fileTitle = (!isset($titleNode)) ? 'Sans titre' : $titleNode->textContent;
+  return $fileTitle;
+}
+
+function create_file($subDir, $file)
+{
+  $filename = 'css/' . $subDir . '/' . $file . '.css';
+  if (!file_exists($filename)) {
+    echo "<span>Le fichier $filename n'existe pas. </span>";
+    if (!file_exists('css/' . $subDir)) {
+      mkdir('css/' . $subDir);
+    } else {
+      $stream = fopen($filename, 'c');
+      fclose($stream);
+
+    }
+  }
+
+  $filename = 'js/' . $subDir . '/' . $file . '.js';
+  if (!file_exists($filename)) {
+    echo "<span>Le fichier $filename n'existe pas. </span>";
+    if (!file_exists('js/' . $subDir)) {
+      mkdir('js/' . $subDir);
+    } else {
+      $stream = fopen($filename, 'c');
+      fclose($stream);
+    }
+  }
+}
+
+?>
