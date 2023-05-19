@@ -20,12 +20,14 @@
   /* background: orange; */
 }
 
-/* TODO virer le pixel apparent des .blob (mettre 81px sur .btn-menu, ou une border, par ex)  */
+/* TODO virer le pixel apparent des .blob (mettre 81px sur .btn-menu, ou outline)  */
 
 .btn-menu {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  /* outline: #333 solid; */
+  /* outline: #f1f1f1 solid; */
   background: #f1f1f1;
   position: absolute;
   top: 50%;
