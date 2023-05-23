@@ -22,12 +22,13 @@ console.log(tree)
 
 const baseUriHtml = './view/'
 const baseUriCss = './css/'
-const baseUriJS = './js/'
+const baseUriJS = 'js/'
 
 let justRefreshed = true
 
 
 const targetEl = document.querySelector('.target');
+// const targetEl = document.querySelector('body');
 // const targetEl = document.getElementsByTagName('main');
 
 
@@ -40,54 +41,39 @@ const loadHtml = file => {
   })
     .then(result => {
       // * Nettoyer le résultat pour ne récupérer que le contenu de la balise body
-      result = (result.substring(result.indexOf('<body>') + 6, result.indexOf('</body>'))).trim()
-      // console.log(result)
-      //result = result.replaceAll('../../', '')
-      // console.log(result)
+      console.log(result)
+      script = result.substring(result.indexOf('<script'), result.lastIndexOf('</script>')+9)
+      console.log('script : ')
+      console.log(script)
+      // result = (result.substring(result.indexOf('<body>') + 6, result.indexOf('</body>'))).trim()
+      result = (result.substring(result.indexOf('<div class="target">') + 20, result.lastIndexOf('</div>'))).trim()
+      console.log('result 1 : ')
+      console.log(result)
+      // result += script
+      result = result.replaceAll('../../', '')
+      script = script.replaceAll('../../', '')
+      console.log(result)
       targetEl.innerHTML = result;
 
+      console.log('innerHTML body : ')
+      console.log(document.querySelector('body').innerHTML)
+      console.log('innerHTML body + result : ')
+      console.log(document.querySelector('body').innerHTML + script)
+      result2 = document.querySelector('body').innerHTML + script
+      document.querySelector('body').innerHTML = result2
+
+      //
+      loadMenu(file)
+      loadCss(file)
+      //loadJs(file)
+      justRefreshed = false
+
+      // let w = window.open('view/Menu/menu2.html')
+      // let scripts = w.document.querySelectorAll('script')
+      // w.close()
     })
-
-  //
-  loadMenu(file)
-  loadCss(file)
-  //loadJs(file)
-  justRefreshed = false
 }
 
-// * 
-const loadMenu = file => {
-  // console.log(file)
-  // console.log(file.substring(file.lastIndexOf('/')+1, file.length))
-
-  let div = document.createElement('div')
-  div.className = "my-menu"
-
-  let span = document.createElement('span')
-  span.textContent = file.substring(file.lastIndexOf('/') + 1, file.length)
-
-  let a = document.createElement('a')
-  a.textContent = 'ouvrir'
-  a.href = file
-  a.target = "_blank"
-
-  console.log(a)
-
-  let button = document.createElement('button')
-  button.textContent = 'ouvrir'
-
-  div.append(span)
-  div.appendChild(a)
-  div.appendChild(button)
-
-  targetEl.insertAdjacentElement('afterbegin', div)
-
-  // targetEl.appendChild(button)
-  // targetEl.appendChild(a)
-
-
-
-}
 
 
 
@@ -109,7 +95,7 @@ const loadCss = file => {
 const loadJs = file => {
   let script = document.createElement('script')
   // link.src = `./css/bloc/${file}.css`
-  script.setAttribute('src', `./js/${file}-script.js`)
+  script.setAttribute('src', (file.replace(baseUriHtml, baseUriJS)).replace('.html', '.js'))
   if (justRefreshed) {
     document.querySelector('body').insertAdjacentElement('beforeend', script)
     // document.querySelector('.target').insertAdjacentElement('beforeend', script)
@@ -136,7 +122,7 @@ function create_navbar() {
     // console.log(dir)
     let ul = document.createElement('ul')
     ul.textContent = dir['dirname']
-    console.log(ul)
+    //console.log(ul)
 
     // let a = document.createElement('a')
     // a.textContent = dir['dirname']
@@ -153,7 +139,7 @@ function create_navbar() {
       let a = document.createElement('a')
       a.textContent = file['title']
       // a.target = "_blank"
-      console.log(dir['dirname'])
+      //console.log(dir['dirname'])
       // a.href = baseUriHtml + file['path'] + '/' + file['filename']
       let t = baseUriHtml + dir['dirname'] + '/' + file['filename']
       // a.href = baseUriHtml + dir['dirname'] + '/' + file['filename']
@@ -181,9 +167,9 @@ let tr = document.querySelectorAll('a');
 // console.log(sidebarBtn);
 tr.forEach(el => {
   el.addEventListener("click", () => {
-    console.log('a clicked');
-    console.log(el.href)
-    console.log(tree)
+    // console.log('a clicked');
+    // console.log(el.href)
+    // console.log(tree)
   });
 
 });
@@ -191,10 +177,12 @@ let trr = document.querySelectorAll('li');
 // console.log(sidebarBtn);
 trr.forEach(el => {
   el.addEventListener("click", () => {
-    console.log('li clicked');
-    console.log(baseUriHtml + el.id)
-    loadHtml(baseUriHtml + el.id)
+    // console.log('li clicked');
+    // console.log(baseUriHtml + el.id)
+    // loadHtml(baseUriHtml + el.id)
     // window.open(baseUriHtml + el.id, '_blank');
+    document.querySelector('iframe').src = baseUriHtml + el.id
+    loadMenu(baseUriHtml + el.id)
   });
 
 });

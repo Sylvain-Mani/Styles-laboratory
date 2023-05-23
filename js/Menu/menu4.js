@@ -1,4 +1,4 @@
-const data = {
+data = {
   by: 'CodingLab',
   video: 'https://www.youtube.com/watch?v=MtNpxdQ9DUo',
   code: 'https://www.codingnepalweb.com/draggable-circular-navigation-menu-html-css-javascript/'

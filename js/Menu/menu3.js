@@ -1,4 +1,4 @@
-const data = {
+data = {
   by: 'Codehal',
   video: 'https://www.youtube.com/watch?v=Q6YUEqnOgIg',
   code: 'https://codehalweb.com/magic-navigation-menu-indicator/'

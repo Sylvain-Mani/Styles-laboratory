@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/style-index.css" />
   <title>Document</title>
 </head>
 
@@ -14,7 +14,10 @@
     <button onclick="loadHtml('dropdown2')">Load</button>
   </div> -->
 
-  <div class="target"></div>
+  <div class="target">
+      <iframe src="" frameborder="0"></iframe>
+
+  </div>
 
   <?php
   $data = create_tree();
@@ -25,6 +28,7 @@
     let tree = <?php echo $data ?>
   </script>
   <script src="./js/app.js"></script>
+  <script src="./js/menu.js"></script>
 
 </body>
 
@@ -51,7 +55,8 @@ function create_tree()
             'title' => get_titleHtml($dir . $subDir . DIRECTORY_SEPARATOR . $file),
           ];
           // test(pathinfo($file)['dirname'], pathinfo($file)['filename']);
-          create_file($subDir, pathinfo($file)['filename']);
+          // * creation des fichiers si ils n'existent pas
+          // create_file($subDir, pathinfo($file)['filename']);
         }
       }
       if ($files !== []) {
